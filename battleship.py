@@ -62,8 +62,13 @@ Parameters: int ; int
 Returns: 2D list of ints
 '''
 def emptyGrid(rows, cols):
-    return
-
+    grid=[]
+    for i in range(rows):
+        col=[]
+        for i in range(cols):
+            col.append(1)
+        grid.append(col)
+    return grid
 
 '''
 createShip()
@@ -71,7 +76,8 @@ Parameters: no parameters
 Returns: 2D list of ints
 '''
 def createShip():
-    return
+
+    return 
 
 
 '''
@@ -270,4 +276,5 @@ def runSimulation(w, h):
 if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
-    runSimulation(500, 500)
+    test.testEmptyGrid()
+    #runSimulation(500, 500)
