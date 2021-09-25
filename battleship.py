@@ -65,7 +65,7 @@ def emptyGrid(rows, cols):
     grid=[]
     for i in range(rows):
         col=[]
-        for i in range(cols):
+        for j in range(cols):
             col.append(1)
         grid.append(col)
     return grid
