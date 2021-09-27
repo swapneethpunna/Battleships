@@ -90,7 +90,7 @@ def createShip():
 '''
 checkShip(grid, ship)
 Parameters: 2D list of ints ; 2D list of ints
-Returns: bool
+Returns: bool.
 '''
 def checkShip(grid, ship):
     for i in ship:
