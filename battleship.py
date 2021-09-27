@@ -80,10 +80,10 @@ def createShip():
     cent_cols=random.randint(1,8)
     center=random.randint(0,1)
     if center==0:
-        a=[[cent_rows-1,cent_cols],[cent_rows,cent_cols],[cent_rows+1,cent_cols]]
+        ship=[[cent_rows-1,cent_cols],[cent_rows,cent_cols],[cent_rows+1,cent_cols]]
     else:
-        a=[[cent_rows,cent_cols-1],[cent_rows,cent_cols],[cent_rows,cent_cols+1]]
-    return a
+        ship=[[cent_rows,cent_cols-1],[cent_rows,cent_cols],[cent_rows,cent_cols+1]]
+    return ship
     
 
 
@@ -94,7 +94,7 @@ Returns: bool
 '''
 def checkShip(grid, ship):
     for i in ship:
-        if grid[i[0]][i[1]]!=EMPTY_UNCLICKED:
+        if grid[i[0]][i[1]] !=EMPTY_UNCLICKED:
             return False
     return True
 
