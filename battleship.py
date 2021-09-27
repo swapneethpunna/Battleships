@@ -80,10 +80,10 @@ def createShip():
     cent_cols=random.randint(1,8)
     center=random.randint(0,1)
     if center==0:
-        a=[[cent_rows-1,cent_cols],[cent_rows,cent_cols],[cent_rows+1,cent_cols]]
+        ship=[[cent_rows-1,cent_cols],[cent_rows,cent_cols],[cent_rows+1,cent_cols]]
     else:
-        a=[[cent_rows,cent_cols-1],[cent_rows,cent_cols],[cent_rows,cent_cols+1]]
-    return a
+        ship=[[cent_rows,cent_cols-1],[cent_rows,cent_cols],[cent_rows,cent_cols+1]]
+    return ship
     
 
 
@@ -108,8 +108,17 @@ addShips(grid, numShips)
 Parameters: 2D list of ints ; int
 Returns: 2D list of ints
 '''
-def addShips(grid, numShips):
-    return
+def addShips(grid, numShip):
+    count=0 
+    while count<numShip: 
+        ship=createShip() 
+        if checkShip(grid, ship)==True: 
+            for i in ship: 
+                grid[i[0]][i[1]]=SHIP_UNCLICKED 
+            count=count+1 
+    return grid
+
+    
 
 
 '''
@@ -290,5 +299,5 @@ def runSimulation(w, h):
 if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
-    test.testCheckShip()
+    test.testAddShips()
     #runSimulation(500, 500)
