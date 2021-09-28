@@ -107,7 +107,7 @@ Returns: 2D list of ints
 '''
 def addShips(grid, numShip):
     count=0 
-    while count<numShip: 
+    while count<numShips: 
         ship=createShip() 
         if checkShip(grid, ship)==True: 
             for i in ship: 
