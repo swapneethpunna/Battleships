@@ -44,8 +44,8 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; Tkinter canvas
 Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
-     #userCanvas=drawGrid(data, userCanvas, data["user_board"],True)
-     #compCanvas=drawGrid(data,compCanvas,data["comp_board"],True)
+    userCanvas=drawGrid(data, userCanvas, data["user_board"],True)
+    compCanvas=drawGrid(data,compCanvas,data["comp_board"],True)
     return
 
 
