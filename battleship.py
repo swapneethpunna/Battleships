@@ -152,14 +152,10 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isVertical(ship):
-    rows=[] 
-    if ship[0][1] == ship[1][1] == ship[2][1]: 
-        for i in ship: 
-            rows.append(i[0]) 
-        rows.sort() 
-        if max(rows)-min(rows)==2:
-            return True 
-    return False 
+    ship.sort()
+    if ship[0][1] == ship[1][1] == ship[2][1] and ship[0][0]+1==ship[1][0]== ship[2][0]-1:
+        return True
+    return False
 
 
 
@@ -169,14 +165,10 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isHorizontal(ship):
-    cols=[] 
-    if ship[0][0] == ship[1][0] == ship[2][0]: 
-        for i in ship: 
-            cols.append(i[1]) 
-        cols.sort()
-        if max(cols)-min(cols)==2:
-            return True 
-    return False 
+    ship.sort()
+    if ship[0][0] == ship[1][0] == ship[2][0] and ship[0][1]+1==ship[1][1]== ship[2][1]-1:
+        return True
+    return False
     
 
 
