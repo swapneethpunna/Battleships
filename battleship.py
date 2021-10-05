@@ -4,6 +4,7 @@ Name:
 Roll No:
 """
 
+from typing import Collection
 import battleship_tests as test
 
 project = "Battleship" # don't edit this
@@ -47,7 +48,7 @@ Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
     drawGrid(data, userCanvas, data["user_board"],True)
-    drawGrid(data,compCanvas,data["comp_board"],True)
+    drawGrid(data,compCanvas,data["comp_board"],False)
     drawShip(data,userCanvas,data["temp_ships"])
     return
 
@@ -70,6 +71,8 @@ def mousePressed(data, event, board):
     mouse = getClickedCell(data,event)
     if board=="user":
         clickUserBoard(data,mouse[0],mouse[1])
+    elif board=="comp":
+        runGameTurn(data,mouse[0],mouse[1])
     return
 
 
@@ -147,8 +150,15 @@ def drawGrid(data, canvas, grid, showShips):
         for col in range(data["cols"]):
             if grid[row][col]==SHIP_UNCLICKED:
                 canvas.create_rectangle(data["cellsize"]*col, data["cellsize"]*row, data["cellsize"]*(col+1), data["cellsize"]*(row+1), fill="yellow")
-            else:
+            elif grid[row][col]==EMPTY_UNCLICKED:
                 canvas.create_rectangle(data["cellsize"]*col, data["cellsize"]*row, data["cellsize"]*(col+1), data["cellsize"]*(row+1), fill="blue")
+            elif grid[row][col]==SHIP_CLICKED:
+                canvas.create_rectangle(data["cellsize"]*col, data["cellsize"]*row, data["cellsize"]*(col+1), data["cellsize"]*(row+1), fill="red")
+            elif grid[row][col]==EMPTY_CLICKED:
+                canvas.create_rectangle(data["cellsize"]*col, data["cellsize"]*row, data["cellsize"]*(col+1), data["cellsize"]*(row+1), fill="white")
+            if grid[row][col]==SHIP_UNCLICKED and showShips==False:
+                canvas.create_rectangle(data["cellsize"]*col, data["cellsize"]*row, data["cellsize"]*(col+1), data["cellsize"]*(row+1), fill="blue")
+
     return
 
 
@@ -160,14 +170,10 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isVertical(ship):
-    rows=[] 
-    if ship[0][1] == ship[1][1] == ship[2][1]: 
-        for i in ship: 
-            rows.append(i[0]) 
-        rows.sort() 
-        if max(rows)-min(rows)==2:
-            return True 
-    return False 
+    ship.sort()
+    if ship[0][1] == ship[1][1] == ship[2][1] and ship[0][0]+1==ship[1][0]== ship[2][0]-1:
+        return True
+    return False
 
 
 
@@ -177,15 +183,10 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isHorizontal(ship):
-    cols=[] 
-    if ship[0][0] == ship[1][0] == ship[2][0]: 
-        for i in ship: 
-            cols.append(i[1]) 
-        cols.sort()
-        if max(cols)-min(cols)==2:
-            return True 
-    return False 
-    
+    ship.sort()
+    if ship[0][0] == ship[1][0] == ship[2][0] and ship[0][1]+1==ship[1][1]== ship[2][1]-1:
+        return True
+    return False
 
 
 '''
@@ -247,9 +248,9 @@ def clickUserBoard(data, row, col):
     if data["user_track"]==5:
         print("you can start the game")
         return
-    for i in data["temp_ships"]:
-        if [row,col]==i:
-            return
+    #for i in data["temp_ships"]:
+    if [row,col] in data["temp_ships"]:
+        return
     data["temp_ships"].append([row,col])
     if len(data["temp_ships"])==3:
         placeShip(data)
@@ -265,6 +266,11 @@ Parameters: dict
 Returns: None
 '''
 def updateBoard(data, board, row, col, player):
+    if  board == data["user_board"] or data["comp_board"]:
+        if board[row][col]==SHIP_UNCLICKED:
+            board[row][col]=SHIP_CLICKED
+        elif board[row][col]==EMPTY_UNCLICKED:
+            board[row][col]=EMPTY_CLICKED
     return
 
 
@@ -274,7 +280,14 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def runGameTurn(data, row, col):
+    if data["comp_board"][row][col]==SHIP_CLICKED or data["comp_board"][row][col]==EMPTY_CLICKED:
+        return
+    else:
+        updateBoard(data,data["comp_board"],row,col,"user")
+    x= getComputerGuess(data["user_board"])
+    updateBoard(data,data["user_board"],x[0],x[1],"comp")
     return
+    
 
 
 '''
@@ -283,7 +296,14 @@ Parameters: 2D list of ints
 Returns: list of ints
 '''
 def getComputerGuess(board):
-    return
+    row=random.randint(0,9)
+    col=random.randint(0,9)
+    while board[row][col]==SHIP_CLICKED or board[row][col]==EMPTY_CLICKED:
+        row=random.randint(0,9)
+        col=random.randint(0,9)
+    if board[row][col]==EMPTY_UNCLICKED or board[row][col]==SHIP_UNCLICKED:
+        return [row,col]
+        
 
 
 '''
@@ -361,6 +381,7 @@ def runSimulation(w, h):
 if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
-    ##test.testShipIsValid()
-    
+
+    # test.testIsHorizontal()
+    # test.testIsHorizontal()
     runSimulation(500, 500)
