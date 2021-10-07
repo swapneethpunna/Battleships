@@ -337,10 +337,10 @@ Returns: None
 '''
 def drawGameOver(data, canvas):
     if data["winner"]=="user":
-        canvas.create_text(300, 50, text="winner winner chicken dinner", fill="black", font=('Helvetica 15 bold'))
+        canvas.create_text(300, 50, text="congrats! you won the game", fill="black", font=('Helvetica 15 bold'))
         canvas.create_text(300, 100, text="press enter to play again", fill="black", font=('Helvetica 15 bold'))
     elif data["winner"]=="comp":
-        canvas.create_text(300, 50, text="Ayipaayee", fill="black", font=('Helvetica 15 bold'))
+        canvas.create_text(300, 50, text="you lost the game", fill="black", font=('Helvetica 15 bold'))
         canvas.create_text(300, 100, text="press enter to play again", fill="black", font=('Helvetica 15 bold'))
     elif data["winner"]=="draw":
         canvas.create_text(300, 50, text="you are out of moves, Draw", fill="black", font=('Helvetica 15 bold'))
