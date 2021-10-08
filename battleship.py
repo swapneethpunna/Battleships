@@ -63,7 +63,7 @@ Parameters: dict mapping strs to values ; key event object
 Returns: None
 '''
 def keyPressed(data, event):
-    if event:
+    if event.keycode==13:
         makeModel(data)
     return
 
@@ -336,12 +336,15 @@ Returns: None
 '''
 def drawGameOver(data, canvas):
     if data["winner"]=="user":
+        canvas.delete(ALL)
         canvas.create_text(300, 50, text="congrats! you won the game", fill="black", font=('Helvetica 15 bold'))
         canvas.create_text(300, 100, text="press enter to play again", fill="black", font=('Helvetica 15 bold'))
     elif data["winner"]=="comp":
+        canvas.delete(ALL)
         canvas.create_text(300, 50, text="you lost the game", fill="black", font=('Helvetica 15 bold'))
         canvas.create_text(300, 100, text="press enter to play again", fill="black", font=('Helvetica 15 bold'))
     elif data["winner"]=="draw":
+        canvas.delete(ALL)
         canvas.create_text(300, 50, text="you are out of moves, Draw", fill="black", font=('Helvetica 15 bold'))
         canvas.create_text(300, 100, text="press enter to play again", fill="black", font=('Helvetica 15 bold'))
     return
