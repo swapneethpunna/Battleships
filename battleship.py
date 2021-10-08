@@ -272,11 +272,10 @@ Parameters: dict
 Returns: None
 '''
 def updateBoard(data, board, row, col, player):
-    if  board == data["user_board"] or data["comp_board"]:
-        if board[row][col]==SHIP_UNCLICKED:
-            board[row][col]=SHIP_CLICKED
-        elif board[row][col]==EMPTY_UNCLICKED:
-            board[row][col]=EMPTY_CLICKED
+    if board[row][col]==SHIP_UNCLICKED:
+        board[row][col]=SHIP_CLICKED
+    elif board[row][col]==EMPTY_UNCLICKED:
+        board[row][col]=EMPTY_CLICKED
     if isGameOver(board):
         data["winner"]=player
     return
