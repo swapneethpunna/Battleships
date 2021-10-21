@@ -312,6 +312,7 @@ def getComputerGuess(board):
         row=random.randint(0,9)
         col=random.randint(0,9)
     if board[row][col]==EMPTY_UNCLICKED or board[row][col]==SHIP_UNCLICKED:
+        
         return [row,col]
         
 
