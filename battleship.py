@@ -296,6 +296,7 @@ def runGameTurn(data, row, col):
     data["current_num_of_turns"]+=1
     if data["current_num_of_turns"]==data["max_num_of_turns"]:
         data["winner"]="draw"
+        
     return
     
 
