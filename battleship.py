@@ -278,7 +278,6 @@ def updateBoard(data, board, row, col, player):
         board[row][col]=EMPTY_CLICKED
     if isGameOver(board):
         data["winner"]=player
-        
     return
 
 
