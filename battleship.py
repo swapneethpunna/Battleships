@@ -165,7 +165,6 @@ def drawGrid(data, canvas, grid, showShips):
                 canvas.create_rectangle(data["cellsize"]*col, data["cellsize"]*row, data["cellsize"]*(col+1), data["cellsize"]*(row+1), fill="white")
             if grid[row][col]==SHIP_UNCLICKED and showShips==False:
                 canvas.create_rectangle(data["cellsize"]*col, data["cellsize"]*row, data["cellsize"]*(col+1), data["cellsize"]*(row+1), fill="blue")
-
     return
 
 
